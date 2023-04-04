@@ -20,8 +20,10 @@ def create_account(account, number, name, amount):
 def deposit(account, number, amount):
 # функция для пополнения счета.
     dict = find_by_key(list_of_clients, "number", number)
+    if dict == None:
+        print(f"error: пользователя {number} не существует")
 
-    if float(dict["amount"]) < 0:
+    elif float(dict["amount"]) < 0:
         print("error: нельзя вводить отрицательные суммы")
     else:
         dict["amount"] = str(float(dict["amount"]) + float(amount))
@@ -30,6 +32,11 @@ def deposit(account, number, amount):
 def withdraw(account, number, amount):
 # функция для снятия денег со счета
     dict = find_by_key(list_of_clients, "number", number)
+
+
+    if dict == None:
+        print(f"error: пользователя {number} не существует")
+
     if dict["amount"] < amount:
         print("error: на счете недостаточно средств")
     else:
@@ -38,17 +45,23 @@ def withdraw(account, number, amount):
 def transfer(account, sender, receiver, amount):
 #  функция для перевода средств между счетами.
     dict_sender = find_by_key(list_of_clients, "number", sender)
-    if dict_sender["amount"] < amount:
-        print(f'error: на счете sender недостаточно средств')
+    dict_receiver = find_by_key(list_of_clients, "number", receiver)
+    if (dict_receiver == None):
+        print(f"error: пользователя {receiver} не существует")
+    elif dict_sender == None:
+        print(f"error: пользователя {sender} не существует")
+    elif dict_sender["amount"] < amount:
+        print(f'error: на счете /sender недостаточно средств')
     else:
         dict_sender["amount"] = str(float(dict_sender["amount"]) - float(amount))
-        dict_receiver = find_by_key(list_of_clients, "number", receiver)
         dict_receiver["amount"] = str(float(dict_sender["amount"]) + float(amount))
 
 
 def get_balance(account, number):
 # функция для получения текущего баланса.
     dict = find_by_key(list_of_clients, "number", number)
+    if dict == None:
+        print(f"error: пользователя {number} не существует")
     print("name = ", dict["name"], "amount =", dict["amount"])
 
 if __name__ == '__main__':
