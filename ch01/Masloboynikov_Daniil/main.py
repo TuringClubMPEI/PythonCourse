@@ -9,7 +9,7 @@ def create_account(account, number, name, amount):
 #функция для создания нового счета.
     dict = {"account" : account, "number" : number, "name" : name, "amount" : amount}
     dict1 = find_by_key(list_of_clients, "number", number)
-    # print(dict1)
+
     if dict1!=None:
         print("error: номер занят")
     elif float(dict["amount"])<0:
@@ -20,6 +20,7 @@ def create_account(account, number, name, amount):
 def deposit(account, number, amount):
 # функция для пополнения счета.
     dict = find_by_key(list_of_clients, "number", number)
+
     if dict == None:
         print(f"error: пользователя {number} не существует")
 
@@ -33,7 +34,6 @@ def withdraw(account, number, amount):
 # функция для снятия денег со счета
     dict = find_by_key(list_of_clients, "number", number)
 
-
     if dict == None:
         print(f"error: пользователя {number} не существует")
 
@@ -44,8 +44,10 @@ def withdraw(account, number, amount):
 
 def transfer(account, sender, receiver, amount):
 #  функция для перевода средств между счетами.
+
     dict_sender = find_by_key(list_of_clients, "number", sender)
     dict_receiver = find_by_key(list_of_clients, "number", receiver)
+
     if (dict_receiver == None):
         print(f"error: пользователя {receiver} не существует")
     elif dict_sender == None:
@@ -60,9 +62,10 @@ def transfer(account, sender, receiver, amount):
 def get_balance(account, number):
 # функция для получения текущего баланса.
     dict = find_by_key(list_of_clients, "number", number)
+
     if dict == None:
         print(f"error: пользователя {number} не существует")
-    print("name = ", dict["name"], "amount =", dict["amount"])
+    elif print("name = ", dict["name"], "amount =", dict["amount"])
 
 if __name__ == '__main__':
     global list_of_client
