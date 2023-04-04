@@ -65,7 +65,8 @@ def get_balance(account, number):
 
     if dict == None:
         print(f"error: пользователя {number} не существует")
-    elif print("name = ", dict["name"], "amount =", dict["amount"])
+    else:
+        print("name = ", dict["name"], "amount =", dict["amount"])
 
 if __name__ == '__main__':
     global list_of_client
