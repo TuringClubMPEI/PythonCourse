@@ -1,25 +1,25 @@
 
 def find_by_key(iterable, key, value):
 #функция поиска словаря в списке
-    for index, dict_ in enumerate(iterable):
-        if key in dict_ and dict_[key] == value:
+    for dict_ in iterable:
+        if dict_[key] == value:
             return (dict_)
 
 def create_account(account, number, name, amount):
 #функция для создания нового счета.
-    dict = {"account" : account, "number" : number, "name" : name, "amount" : amount}
-    dict1 = find_by_key(list_of_clients, "number", number)
+    dict = {"number" : number, "name" : name, "amount" : amount}
+    dict1 = find_by_key(account, "number", number)
 
     if dict1!=None:
         print("error: номер занят")
     elif float(dict["amount"])<0:
         print("error: нельзя вводить отрицательные суммы")
     else:
-        list_of_clients.append(dict)
+        account.append(dict)
 
 def deposit(account, number, amount):
 # функция для пополнения счета.
-    dict = find_by_key(list_of_clients, "number", number)
+    dict = find_by_key(account, "number", number)
 
     if dict == None:
         print(f"error: пользователя {number} не существует")
@@ -32,7 +32,7 @@ def deposit(account, number, amount):
 
 def withdraw(account, number, amount):
 # функция для снятия денег со счета
-    dict = find_by_key(list_of_clients, "number", number)
+    dict = find_by_key(account, "number", number)
 
     if dict == None:
         print(f"error: пользователя {number} не существует")
@@ -45,23 +45,23 @@ def withdraw(account, number, amount):
 def transfer(account, sender, receiver, amount):
 #  функция для перевода средств между счетами.
 
-    dict_sender = find_by_key(list_of_clients, "number", sender)
-    dict_receiver = find_by_key(list_of_clients, "number", receiver)
+    dict_sender = find_by_key(account, "number", sender)
+    dict_receiver = find_by_key(account, "number", receiver)
 
     if (dict_receiver == None):
         print(f"error: пользователя {receiver} не существует")
     elif dict_sender == None:
         print(f"error: пользователя {sender} не существует")
-    elif dict_sender["amount"] < amount:
-        print(f'error: на счете /sender недостаточно средств')
+    elif float(dict_sender["amount"]) < float(amount):
+        print(f'error: на счете {sender} недостаточно средств')
     else:
         dict_sender["amount"] = str(float(dict_sender["amount"]) - float(amount))
-        dict_receiver["amount"] = str(float(dict_sender["amount"]) + float(amount))
+        dict_receiver["amount"] = str(float(dict_receiver["amount"]) + float(amount))
 
 
 def get_balance(account, number):
 # функция для получения текущего баланса.
-    dict = find_by_key(list_of_clients, "number", number)
+    dict = find_by_key(account, "number", number)
 
     if dict == None:
         print(f"error: пользователя {number} не существует")
@@ -69,7 +69,6 @@ def get_balance(account, number):
         print("name = ", dict["name"], "amount =", dict["amount"])
 
 if __name__ == '__main__':
-    global list_of_client
     list_of_clients = []
     # create_account()
     i = 0
@@ -82,33 +81,33 @@ if __name__ == '__main__':
                        "4 = transfer \n"
                        "5 = get balance")
         if answer == '1': #создание нового счета.
-            account = input("write accounts")
+            account = list_of_clients
             number = input("write number")
             name = input("write name")
             amount = input("write client's amount")
             create_account(account, number, name, amount)
 
         if answer == '2': #пополнение счета
-            account = input("write accounts")
+            account = list_of_clients
             number = input("write number")
             amount = input("write client's amount")
             deposit(account, number, amount)
 
         if answer == '3': #снятие денег со счета
-            account = input("write accounts")
+            account = list_of_clients
             number = input("write number")
             amount = input("write client's amount")
             withdraw(account, number, amount)
 
         if answer == '4': #перевод средств между счетами.
-            account = input("write accounts")
+            account = list_of_clients
             sender = input("write number of sender")
             receiver = input("write number of receiver")
             amount = input("write client's amount")
             transfer(account, sender, receiver, amount)
 
         if answer == '5': #получение текущего баланса
-            account = input("write accounts")
+            account = list_of_clients
             number = input("write client's number ")
             get_balance(account, number)
 
