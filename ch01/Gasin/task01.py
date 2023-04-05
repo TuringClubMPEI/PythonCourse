@@ -8,10 +8,9 @@ def create_account(accounts, number, name, amount):
     # Не можем создать счет с балансом меньше нуля
     if amount < 0:
         return
-    for account in accounts:
-        # Если есть номер счета или ФИО уже использовано, ничего не создаем
-        if account.get('number') == number or account.get('name') == name:
-            return
+    # Если нашли счет, который имеет тот же номер, ничего не создаем
+    if find_acc(accounts, number) is not None:
+        return
     new_acc = {'number': number, 'name': name, 'amount': amount}
     accounts.append(new_acc)
     return new_acc
@@ -72,6 +71,7 @@ if __name__ == '__main__':
     print('Создание счетов')
     create_account(bank_accounts, 1, 'Misha', 1000)
     create_account(bank_accounts, 2, 'Pasha', 1000)
+    create_account(bank_accounts, 1, 'Kakoy-to huy', 1000)
     print(bank_accounts)
     print()
 
