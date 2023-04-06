@@ -19,7 +19,7 @@ def create_account(name: str, balance: int = 0, accounts: dict = BANK):
     elif balance < 0:  # checking client investment
         # print('incorrect balance')  # may be used for code without try
         raise ValueError('incorrect balance')
-    elif name in accounts:  # checked that account does not exist
+    elif name in [el[0] for el in accounts.values()]:  # checked that account does not exist
         raise KeyError("user already exists")
     else:
         number = accounts['quantity_of_clients'] + 1  # create an account id
