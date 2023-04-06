@@ -8,3 +8,13 @@ def print_menu():
     print('7. exit')
 
 
+def get_num():
+    run = True
+    num = 0
+    while run:
+        try:
+            num = int(input())
+            run = False
+        except ValueError:
+            print('retry. please enter number')
+    return num
