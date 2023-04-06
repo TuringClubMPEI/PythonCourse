@@ -16,7 +16,6 @@ def create_account(name: str, balance: int = 0, accounts=BANK):
     if name == '':  # checking client name
         # print('please enter your name')  # may be used for code without try
 
-
         raise ValueError('please enter your name')
     elif balance < 0:  # checking client investment
         # print('incorrect balance')  # may be used for code without try
