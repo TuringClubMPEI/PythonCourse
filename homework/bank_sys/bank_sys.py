@@ -21,6 +21,7 @@ def create_account(name: str, balance: int = 0, accounts=BANK):
         # print('incorrect balance')  # may be used for code without try
         raise ValueError('incorrect balance')
 
+
     elif name in accounts:
         raise KeyError("user already exists")
     else:
