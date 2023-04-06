@@ -1,3 +1,4 @@
+
 def search_account(accounts, number):
     current_account = list(filter(lambda x: x['number'] == number, accounts))
     return current_account[0] if len(current_account) == 1 else None
