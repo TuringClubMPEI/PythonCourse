@@ -4,18 +4,17 @@ BANK = {'quantity_of_clients': 0}
 # Function to create a bank account
 #
 # Input fields:
-# 'name'     - full name of the bank client
-# 'balance'  - how much money the client has invested in the bank
-# 'accounts' - all bank accounts
+# 'name'       - full name of the bank client
+# 'balance'    - how much money the client has invested in the bank
+# 'accounts'   - all bank accounts
 #
 # Output fields:
-# 'number'   - bank account number
+# 'number'     - bank account number
 
 
 def create_account(name: str, balance: int = 0, accounts: dict = BANK):
     if name == '':  # checking client name
         # print('please enter your name')  # may be used for code without try
-
         raise ValueError('please enter your name')
     elif balance < 0:  # checking client investment
         # print('incorrect balance')  # may be used for code without try
@@ -56,50 +55,47 @@ def deposit(number: int, amount: float, accounts: dict = BANK):
 def withdraw(number: int, amount: float, accounts: dict = BANK):
     if number not in accounts:  # checked that the account exists
         raise KeyError("user doesn't exists")
-    elif amount < 0:  # check that money is the positive number
+    elif amount < 0:  # checked that money is the positive number
         raise ValueError("incorrect amount")
-    elif accounts[number][1] - amount < 0:  # check
+    elif accounts[number][1] - amount < 0:  # checked that client has money for withdraw
         raise ValueError("not enough money on balance")
     else:
-        accounts[number][1] -= amount
+        accounts[number][1] -= amount  # withdraw money from account
 
 
 # Function to create a bank account
 #
 # Input fields:
-# 'name'     - full name of the bank client
-# 'balance'  - how much money the client has invested in the bank
-# 'accounts' - all bank accounts
-#
-# Output fields:
-# 'number'   - bank account number
+# 'sender'     - account number of sender
+# 'receiver'   - account number of receiver
+# 'amount'     - money fo transfer
+# 'accounts'   - all bank accounts
 
 
-def transfer(sender, receiver, amount, accounts=BANK):
-    if (sender not in accounts) or (receiver not in accounts):
+def transfer(sender: int, receiver: int, amount: float, accounts: dict = BANK):
+    if (sender not in accounts) or (receiver not in accounts):  # checked that receiver and sender exists in bank system
         raise KeyError("you can't transfer to/from non-existance account")
-    elif amount < 0:
-        raise ValueError("inccorect amount")
-    elif accounts[sender][1] - amount < 0:
+    elif amount < 0:  # check that money is the positive number
+        raise ValueError("incorrect amount")
+    elif accounts[sender][1] - amount < 0:  # checked that sender has money for withdraw
         raise ValueError("not enough money on balance for transfer")
     else:
-        accounts[receiver][1] += amount
-        accounts[sender][1] -= amount
+        accounts[receiver][1] += amount  # add money to receiver
+        accounts[sender][1] -= amount  # withdraw money from account
 
 
 # Function to create a bank account
 #
 # Input fields:
-# 'name'     - full name of the bank client
-# 'balance'  - how much money the client has invested in the bank
-# 'accounts' - all bank accounts
+# 'number'     - bank account number
+# 'accounts'          - all bank accounts
 #
 # Output fields:
-# 'number'   - bank account number
+# '(name, balance)'   - bank account data
 
 
-def get_balance(number, accounts=BANK):
-    if number not in accounts:
+def get_balance(number: int, accounts: dict = BANK):
+    if number not in accounts:  # checked that account exists
         raise KeyError("account doesn't exists")
     else:
-        print("Hello {}! Thats your balance -> {}".format(accounts[number][0], accounts[number][1]))
+        return accounts[number]  # returned tuple (name, balance)
