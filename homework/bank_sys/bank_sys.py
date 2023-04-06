@@ -1,3 +1,5 @@
+import errors
+
 BANK = {'quantity_of_clients': 0}
 
 
@@ -15,10 +17,10 @@ BANK = {'quantity_of_clients': 0}
 def create_account(name: str, balance: int = 0, accounts: dict = BANK):
     if name == '':  # checking client name
         # print('please enter your name')  # may be used for code without try
-        raise ValueError('please enter your name')
+        raise errors.AccountError('please enter your name')
     elif balance < 0:  # checking client investment
         # print('incorrect balance')  # may be used for code without try
-        raise ValueError('incorrect balance')
+        raise errors.BalanceError('incorrect balance')
     elif name in [el[0] for el in accounts.values()]:  # checked that account does not exist
         raise KeyError("user already exists")
     else:
@@ -40,7 +42,7 @@ def deposit(number: int, amount: float, accounts: dict = BANK):
     if number not in accounts:  # checked that account exists
         raise KeyError("user doesn't exists")
     elif amount < 0:  # check that money is the positive number
-        raise ValueError("incorrect amount")
+        raise errors.AmountError("incorrect amount")
     else:
         accounts[number][1] += amount  # add money to account
 
@@ -56,9 +58,9 @@ def withdraw(number: int, amount: float, accounts: dict = BANK):
     if number not in accounts:  # checked that the account exists
         raise KeyError("user doesn't exists")
     elif amount < 0:  # checked that money is the positive number
-        raise ValueError("incorrect amount")
+        raise errors.AmountError("incorrect amount")
     elif accounts[number][1] - amount < 0:  # checked that client has money for withdraw
-        raise ValueError("not enough money on balance")
+        raise errors.BalanceError("not enough money on balance")
     else:
         accounts[number][1] -= amount  # withdraw money from account
 
@@ -74,11 +76,11 @@ def withdraw(number: int, amount: float, accounts: dict = BANK):
 
 def transfer(sender: int, receiver: int, amount: float, accounts: dict = BANK):
     if (sender not in accounts) or (receiver not in accounts):  # checked that receiver and sender exists in bank system
-        raise KeyError("you can't transfer to/from non-existance account")
+        raise KeyError("you can't transfer to/from non-existence account")
     elif amount < 0:  # check that money is the positive number
-        raise ValueError("incorrect amount")
+        raise errors.AmountError("incorrect amount")
     elif accounts[sender][1] - amount < 0:  # checked that sender has money for withdraw
-        raise ValueError("not enough money on balance for transfer")
+        raise errors.BalanceError("not enough money on balance for transfer")
     else:
         accounts[receiver][1] += amount  # add money to receiver
         accounts[sender][1] -= amount  # withdraw money from account
