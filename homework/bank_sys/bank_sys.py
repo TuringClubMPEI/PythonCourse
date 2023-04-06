@@ -46,6 +46,7 @@ def withdraw(number, amount, accounts=BANK):
     else:
         accounts[number][1] -= amount
 
+
 def transfer(sender, receiver, amount, accounts=BANK):
     if (sender not in accounts) or (receiver not in accounts):
         raise KeyError("you can't transfer to/from non-existance account")
