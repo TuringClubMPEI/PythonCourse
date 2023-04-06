@@ -38,7 +38,7 @@ def create_account(name: str, balance: int = 0, accounts: dict = BANK):
 # 'accounts'   - all bank accounts
 
 
-def deposit(number: int, amount: float, accounts: dict = BANK):
+def deposit(number: int, amount: int, accounts: dict = BANK):
     if number not in accounts:  # checked that account exists
         raise KeyError("user doesn't exists")
     elif amount < 0:  # check that money is the positive number
@@ -54,7 +54,7 @@ def deposit(number: int, amount: float, accounts: dict = BANK):
 # 'amount'     - withdrawal amount
 # 'accounts'   - all bank accounts
 
-def withdraw(number: int, amount: float, accounts: dict = BANK):
+def withdraw(number: int, amount: int, accounts: dict = BANK):
     if number not in accounts:  # checked that the account exists
         raise KeyError("user doesn't exists")
     elif amount < 0:  # checked that money is the positive number
@@ -74,7 +74,7 @@ def withdraw(number: int, amount: float, accounts: dict = BANK):
 # 'accounts'   - all bank accounts
 
 
-def transfer(sender: int, receiver: int, amount: float, accounts: dict = BANK):
+def transfer(sender: int, receiver: int, amount: int, accounts: dict = BANK):
     if (sender not in accounts) or (receiver not in accounts):  # checked that receiver and sender exists in bank system
         raise KeyError("you can't transfer to/from non-existence account")
     elif amount < 0:  # check that money is the positive number
