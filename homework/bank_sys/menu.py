@@ -16,4 +16,6 @@ def get_num():
             run = False
         except ValueError:
             print('retry. please enter number')
+        except KeyboardInterrupt:
+            print('good bay')
     return num
