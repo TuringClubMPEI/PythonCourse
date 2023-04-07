@@ -67,3 +67,4 @@ def get_balance(accounts, number):
         print('An account with number {} does not exists'.format(number))
         return False
     print('The account balance with the number {} is equal to {}'.format(number, account['amount']))
+
