@@ -6,13 +6,13 @@ def find(accounts, number):
 def create_account(accounts, number, name, amount):
     if find(accounts, number) is not None:
         print('An account with number {} already exists'.format(number))
-        return False
+        return
     if number <= 0:
         print('Account number is a positive number')
-        return False
+        return
     if amount < 0:
         print('The balance cannot be negative')
-        return False
+        return
     accounts.append({'number': number,
                      'name': name,
                      'amount': amount})
@@ -22,10 +22,10 @@ def deposit(accounts, number, amount):
     account = find(accounts, number)
     if account is None:
         print('An account with number {} does not exists'.format(number))
-        return False
+        return
     if amount < 0:
         print('The amount of money cannot be negative')
-        return False
+        return
     account['amount'] += amount
 
 
@@ -33,13 +33,13 @@ def withdraw(accounts, number, amount):
     account = find(accounts, number)
     if account is None:
         print('An account with number {} does not exists'.format(number))
-        return False
+        return
     if amount < 0:
         print('The amount of money cannot be negative')
-        return False
+        return
     if account['amount'] < amount:
         print('Insufficient funds')
-        return False
+        return
     account['amount'] -= amount
 
 
@@ -47,17 +47,17 @@ def transfer(accounts, sender, receiver, amount):
     sender_account = find(accounts, sender)
     if sender_account is None:
         print('An account with number {} does not exists'.format(sender))
-        return False
+        return
     receiver_account = find(accounts, receiver)
     if receiver_account is None:
         print('An account with number {} does not exists'.format(receiver))
-        return False
+        return
     if amount < 0:
         print('The amount of money cannot be negative')
-        return False
+        return
     if sender_account['amount'] < amount:
         print('Insufficient funds')
-        return False
+        return
     sender_account['amount'] -= amount
     receiver_account['amount'] += amount
 
@@ -65,5 +65,5 @@ def get_balance(accounts, number):
     account = find(accounts, number)
     if account is None:
         print('An account with number {} does not exists'.format(number))
-        return False
+        return
     print('The account balance with the number {} is equal to {}'.format(number, account['amount']))
