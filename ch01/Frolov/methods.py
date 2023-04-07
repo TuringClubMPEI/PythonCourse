@@ -37,6 +37,8 @@ def withdraw(accounts, number: int, amount: int):
     if current_account is None:
         print(f'A user with account number {number} does not exists!')
         return
+    if current_account['amount'] < amount:
+        print(f'User has not got {amount} on his account')
     current_account['amount'] -= amount
 
 
