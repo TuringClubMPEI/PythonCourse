@@ -4,7 +4,7 @@ def find_in_accounts(accounts, number):
 
 
 def create_account(accounts, number, name, amount):
-    if find_in_accounts(accounts, number):
+    if find_in_accounts(accounts, number) or number <= 0:
         return f'Невозможно открыть счёт с номером счёта {number}'
     if amount <= 0:
         return f'Невозможно открыть счёт с начальной суммой {amount}'
@@ -37,24 +37,22 @@ def withdraw(accounts, number, amount):
 
 
 def transfer(accounts, sender, receiver, amount):
-    data1 = find_in_accounts(accounts, sender)
-    data2 = find_in_accounts(accounts, receiver)
-    if (not data1) and (not data2):
+    sender_data = find_in_accounts(accounts, sender)
+    receiver_data = find_in_accounts(accounts, receiver)
+    if (not sender_data) and (not receiver_data):
         return f'Счёта {sender} и {receiver} не нашлись'
-    if not data1:
+    if not sender_data:
         return f'Счёта {sender} не нашлось'
-    if not data2:
+    if not receiver_data:
         return f'Счёта {receiver} не нашлось'
-    message1 = withdraw(accounts, sender, amount)
-    message2 = deposit(accounts, receiver, amount)
-    # Проверяем можно ли снять деньги со счёта sender
-    if message1 != f'Сумма {amount} успешна снята со счёта {sender}':
-        return message1
-    # Если нельзя зачислить на счёт receiver, возвращаем деньги на счёт sender
-    if message2 != f'Сумма {amount} успешна зачислена нас счёт {receiver}':
-        deposit(accounts, sender, amount)
-        return message2
-    return f'Сумма {amount} успешно переведена со счёта {sender} на счёт {receiver}'
+    if amount <= 0:
+        return 'Нельзя перевести неположительную сумму'
+    if sender_data['amount'] < amount:
+        return f'На счёте {sender} недостатоно средств'
+
+    sender_data['amount'] -= amount
+    receiver_data['amount'] += amount
+    return f'Сумма {amount} успешно переведена с счёта {sender} на счёт {receiver}'
 
 
 def get_balance(accounts, number):
