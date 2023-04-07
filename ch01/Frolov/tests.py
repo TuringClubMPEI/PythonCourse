@@ -1,6 +1,5 @@
 from methods import *
 
-
 def test_1():
     print('-'*100)
     print('Test 1')
