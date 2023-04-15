@@ -56,11 +56,9 @@ class Check(Bank):
 
 
 if __name__ == '__main__':
-    list_of_clients = []
     bank = Bank()
-    # # create_account()
-    i = 0
-    list = []
+    check = Check()
+
     s = input("1 (start) or 0 (stop)")
     while (s == '1'):
         answer = input("choose:\n"
@@ -79,13 +77,11 @@ if __name__ == '__main__':
         if answer == '2': #пополнение счета
             number = input("write number")
             amount = input("write client's amount")
-            check = Check()
             check.deposit(number, amount)
 
         if answer == '3': #снятие денег со счета
             number = input("write number")
             amount = input("write client's amount")
-            check = Check()
             check.withraw(number, amount)
 
         if answer == '4': #перевод средств между счетами.
@@ -96,7 +92,6 @@ if __name__ == '__main__':
     #
         if answer == '5': #получение текущего баланса
             number = input("write client's number ")
-            check = Check()
             check.get_balance(number)
 
         for list in bank.list_of_clients:
