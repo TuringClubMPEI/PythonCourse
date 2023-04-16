@@ -12,7 +12,7 @@ class Bank:
 
         # Перевод денег со счета на счет
 
-    @transfer_valid()
+    @transfer_valid
     def transfer(self, sender: Account, receiver: Account, amount: int):
         sender.balance -= amount
         receiver.balance += amount
@@ -26,4 +26,7 @@ class Bank:
         self._accounts = accounts
 
     def find_acc(self, number):
-        return next(filter(lambda acc: acc.number == number, self._accounts))
+        try:
+            return next(filter(lambda acc: acc.number == number, self._accounts))
+        except StopIteration:
+            return None

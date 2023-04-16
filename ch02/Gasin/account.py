@@ -15,11 +15,11 @@ class Account:
         self._owner_fio = owner_fio
         self._balance = balance
 
-    @deposit_valid()
+    @deposit_valid
     def deposit(self, amount):
         self._balance += amount
 
-    @withdraw_valid()
+    @withdraw_valid
     def withdraw(self, amount):
         self._balance -= amount
 
