@@ -3,8 +3,8 @@ class Bank:
     list_of_clients = []
     def __init__(self):
         print("создаем список клиентов")
-    def set_list(self, Check):
-        self.list_of_clients.append(Check)
+    def set_list(self, сheck):
+        self.list_of_clients.append(сheck)
         print("Добовляем клиента")
     def find_number(self, number):
         for list in self.list_of_clients:
@@ -12,17 +12,30 @@ class Bank:
                 return(list)
 
     def transfer(self, sender, receiver, amount):
-        self = self.find_number(sender)
-        self._amount = float(self.amount) - float(amount)
-        self = self.find_number(receiver)
-        self._amount = float(self.amount) + float(amount)
+        self_sender = self.find_number(sender)
+        if self.find_number(sender) == None:
+            print("пользователя <отправиитель> не существует")
+        elif float(self_sender._amount) - float(amount) < 0:
+            print("сумма превышает остаток на счете")
+        elif self.find_number(receiver) == None:
+            print("пользователя <получатель> не существует")
+        else:
+            self_sender._amount = float(self_sender.amount) - float(amount)
+            self_receiver = self.find_number(receiver)
+            self_receiver._amount = float(self_receiver.amount) + float(amount)
 
 class Check(Bank):
     def __init__(self, number = 123, name = "asd", amount = 0.0):
         self._number = number
         self._name = name
         self._amount = amount
+        if self.find_number(number)!=None:
+            raise Exception ("Пользователь с данным номером уже существует")
 
+
+
+    def __del__(self):
+        pass
     def get_amount(self):
         return self._amount
 
@@ -41,19 +54,22 @@ class Check(Bank):
 
     def deposit(self, number, amount):
         # функция для пополнения счета.
-        self = bank.find_number(number)
-        self._amount = float(self.amount) + float(amount)
+        self_number = bank.find_number(number)
+        self_number._amount = float(self_number.amount) + float(amount)
 
     def withraw(self, number, amount):
         # функция для пополнения счета.
-        self = bank.find_number(number)
-        self._amount = float(self.amount) - float(amount)
+        self_number = bank.find_number(number)
+        if float(self_number.amount) - float(amount) < 0:
+            print("превышает остаток средств")
+        else:
+            self_number._amount = float(self_number.amount) - float(amount)
+
 
     def get_balance(self, number):
     # функция для получения текущего баланса.
-        self = bank.find_number(number)
-        print(self.amount)
-
+        self_number = bank.find_number(number)
+        return self_number.amount
 
 if __name__ == '__main__':
     bank = Bank()
@@ -92,10 +108,11 @@ if __name__ == '__main__':
     #
         if answer == '5': #получение текущего баланса
             number = input("write client's number ")
-            check.get_balance(number)
+            print(check.get_balance(number))
+
 
         for list in bank.list_of_clients:
-            print( "number = ", list.number, "amount = ", list.amount, '\n')
+            print( "number = ", list.number, "; amount = ", list.amount)
 
         s = input("1 (continue) or 0 (stop)")
 
