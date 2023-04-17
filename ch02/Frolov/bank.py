@@ -38,7 +38,7 @@ class Bank:
         current_account = self.search_account(number)
         if current_account is None:
             print('Account does not exist')
-            return
+            return None
         return current_account.amount
 
 
