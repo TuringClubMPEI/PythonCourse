@@ -17,7 +17,7 @@ class Account:
     def withdraw(self, amount):
         if self.__amount - amount <0:
             print('Insufficient Funds')
-            return False
+            return
         self.__amount -= amount
 
     @property

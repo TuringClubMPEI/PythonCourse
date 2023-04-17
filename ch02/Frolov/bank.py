@@ -29,16 +29,17 @@ class Bank:
 
     @validate_transfer
     def transfer(self, sender, receiver, amount):
-        self.withdraw(sender, amount)
-        self.deposit(receiver, amount)
-
+        sender_account = self.search_account(sender)
+        receiver_account = self.search_account(receiver)
+        sender_account.amount -= amount
+        receiver_account.amount += amount
 
     def get_balance(self, number):
         current_account = self.search_account(number)
         if current_account is None:
             print('Account does not exist')
             return
-        print(current_account.amount)
+        return current_account.amount
 
 
 # Sberbank = Bank()

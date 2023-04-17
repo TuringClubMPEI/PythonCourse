@@ -19,12 +19,12 @@ def validate_account(func):
 
 
 def account_exists(func):
-    def wrapper(bank, **kwargs):
-        current_account = bank.search_account(kwargs.get('number'))
+    def wrapper(bank, number, name, amount):
+        current_account = bank.search_account(number)
         if current_account is not None:
             print('Account already exists')
             return
-        func(bank, **kwargs)
+        func(bank, number, name, amount)
     return wrapper
 
 
