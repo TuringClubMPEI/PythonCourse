@@ -10,7 +10,7 @@ def create_acc(bank):
     print('enter how much money do you want to invest in our bank')
     balance = menu.get_num()
     try:
-        num = bank.create_account(name, balance)
+        num = bank.create_account(name=name, balance=balance)
         print('complete successful. that is you account number. don\'t forget -> ', num)
     except errors.BalanceError:
         print('creation interrupted. incorrect balance value')
@@ -52,7 +52,7 @@ def dep(bank):
     print('enter money to put into bank')
     amount = menu.get_num()
     try:
-        bank.deposit(amount)
+        bank.deposit(amount=amount)
     except KeyError:
         print('deposit interrupted. account doesn\'t exist.')
     except errors.AmountError:
@@ -64,7 +64,7 @@ def wd(bank):
     print('enter money to withdraw')
     amount = menu.get_num()
     try:
-        bank.withdraw(amount)
+        bank.withdraw(amount=amount)
     except KeyError:
         print('withdraw interrupted. account doesn\'t exist.')
     except errors.AmountError:
@@ -80,7 +80,7 @@ def trans(bank):
     print('enter amount of money for transfer')
     amount = menu.get_num()
     try:
-        bank.transfer(receiver, amount)
+        bank.transfer(receiver=receiver, amount=amount)
     except KeyError:
         print('transfer interrupted. account doesn\'t exist.')
     except errors.AmountError:
