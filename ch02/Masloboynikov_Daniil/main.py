@@ -15,14 +15,14 @@ class Bank:
         self_sender = self.find_number(sender)
         if self.find_number(sender) == None:
             print("пользователя <отправиитель> не существует")
-        elif float(self_sender._amount) - float(amount) < 0:
+        elif float(self_sender.amount) - float(amount) < 0:
             print("сумма превышает остаток на счете")
         elif self.find_number(receiver) == None:
             print("пользователя <получатель> не существует")
         else:
-            self_sender._amount = float(self_sender.amount) - float(amount)
+            self_sender.amount = float(self_sender.amount) - float(amount)
             self_receiver = self.find_number(receiver)
-            self_receiver._amount = float(self_receiver.amount) + float(amount)
+            self_receiver.amount = float(self_receiver.amount) + float(amount)
 
 class Check(Bank):
     def __init__(self, number = 123, name = "asd", amount = 0.0):
@@ -36,26 +36,26 @@ class Check(Bank):
 
     def __del__(self):
         pass
-    def get_amount(self):
+    @property
+    def amount(self):
         return self._amount
-
-    def set_amount(self, x = 0.0):
-        self._amount = float(self._amount) + float(x)
-
-    amount = property(get_amount, set_amount)
-
-    def get_number(self):
+    @amount.setter
+    def amount(self, x = 0.0):
+        self._amount = x
+    @property
+    def number(self):
         return self._number
-
-    def set_number(self, x):
+    @number.setter
+    def number(self, x):
         self._number = x
-
-    number = property(get_number, set_number)
 
     def deposit(self, number, amount):
         # функция для пополнения счета.
         self_number = bank.find_number(number)
-        self_number._amount = float(self_number.amount) + float(amount)
+        print(self_number.amount)
+        print(amount1)
+        self_number.amount = float(self_number.amount) + float(amount)
+
 
     def withraw(self, number, amount):
         # функция для пополнения счета.
@@ -63,7 +63,7 @@ class Check(Bank):
         if float(self_number.amount) - float(amount) < 0:
             print("превышает остаток средств")
         else:
-            self_number._amount = float(self_number.amount) - float(amount)
+            self_number.amount = float(self_number.amount) - float(amount)
 
 
     def get_balance(self, number):
