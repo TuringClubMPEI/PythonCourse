@@ -1,24 +1,24 @@
 # создание счёта
 def create_account(accounts, number, name, amount):
-    new_account = {"number_of_account": number, "name_of_account": name, "amount_of_account": amount}
+    new_account = {"number of account": number, "name of account": name, "amount of account": amount}
     accounts.append(new_account)
     return 0
 
 # пополнение счёта
 def deposit(accounts, number, amount):
     for i in range(len(accounts)):
-        value_number = accounts[i].get("number_of_account", None)
+        value_number = accounts[i].get("number of account", None)
         if (number == value_number):
-            accounts[i]["amount_of_account"] += amount
+            accounts[i]["amount of account"] += amount
             break
     return 0
 
 # снятие средств со счёта
 def withdraw(accounts, number, amount):
     for i in range(len(accounts)):
-        value_number = accounts[i].get("number_of_account", None)
+        value_number = accounts[i].get("number of account", None)
         if (number == value_number):
-            accounts[i]["amount_of_account"] -= amount
+            accounts[i]["amount of account"] -= amount
             break
     return 0
 
@@ -31,9 +31,9 @@ def transfer(accounts, sender, receiver, amount):
 # информация о счёте
 def get_balance(accounts, number):
     for i in range(len(accounts)):
-        value_number = accounts[i].get("number_of_account", None)
+        value_number = accounts[i].get("number of account", None)
         if (number == value_number):
-            print("На счете", accounts[i]["name_of_account"] , "находится", accounts[i]["amount_of_account"], "у.е.")
+            print("На счете", accounts[i]["name of account"] , "находится", accounts[i]["amount of account"], "у.е.")
             break
     return 0
 
@@ -42,7 +42,7 @@ def checking_account(accounts, number):
     flag = False
     number_of_cycles = 0
     for i in range(len(accounts)):
-        value_of_number = accounts[i].get("number_of_account", None)
+        value_of_number = accounts[i].get("number of account", None)
         if (number == value_of_number):
             flag = True
     while (flag == False) and (number_of_cycles == 0): # если такого счёта нет, пытаемся ещё раз ввести (6 попыток)
@@ -61,14 +61,14 @@ def checking_account(accounts, number):
 # проверка возможности снятия указанной суммы с аккаунта
 def checking_amount_of_withdraw(accounts, number):
     for i in range(len(accounts)):
-        value_number = accounts[i].get("number_of_account", None)
+        value_number = accounts[i].get("number of account", None)
         if (number == value_number):
             podh_account = i
-            amount_of_account = bank[podh_account]["amount_of_account"]
-    print("Введите сумму.")
+            amount_of_account = bank[podh_account]["amount of account"]
+    print("Введите сумму снятия.")
     amount = int(input())
-    while (amount > amount_of_account) or (amount < 0):
-        print("Введено некорректное значение суммы")
+    while (amount > amount_of_account):
+        print("На счету меньше средств, чем было введено для снятия. Повторите попытку.")
         amount = int(input())
     return amount
 
@@ -92,7 +92,7 @@ while (stop_signal == True):
                     print("Введите номер создаваемого счёта")
                     creating_number = int(input())
                     for i in range(len(bank)):
-                        value_of_number = bank[i].get("number_of_account", None)
+                        value_of_number = bank[i].get("number of account", None)
                         if (creating_number == value_of_number):
                             print("Такой номер счёта уже существует. Повторите ввод номера.")
                             creating_flag = True
