@@ -1,15 +1,8 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <module type="JAVA_MODULE" version="4">
   <component name="NewModuleRootManager" inherit-compiler-output="true">
     <exclude-output />
-    <content url="file://$MODULE_DIR$">
-      <excludeFolder url="file://$MODULE_DIR$/venv" />
-    </content>
-<<<<<<< HEAD
-    <orderEntry type="jdk" jdkName="Python 3.11 (PythonCourse)" jdkType="Python SDK" />
-=======
-    <orderEntry type="jdk" jdkName="Python 3.10" jdkType="Python SDK" />
->>>>>>> dabb56e446c7ea73f5aa96690cd8468b4e1e70c9
+    <content url="file://$MODULE_DIR$" />
+    <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
   </component>
 </module>
