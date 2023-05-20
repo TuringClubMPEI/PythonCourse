@@ -1,0 +1,316 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+CAUTION: Do not modify this file unless you know what you are doing.
+         Unexpected results may occur if the code is changed deliberately.
+-->
+<dbmodel pgmodeler-ver="0.9.3" use-changelog="false" last-position="578,269" last-zoom="0.9" max-obj-count="16"
+	 default-owner="postgres">
+<database name="new_database" is-template="false" allow-conns="true">
+</database>
+
+<schema name="public" layer="0" fill-color="#e1e1e1" sql-disabled="true">
+</schema>
+
+<schema name="factory_control" layer="0" rect-visible="true" fill-color="#e1e1e1">
+	<role name="postgres"/>
+	<comment><![CDATA[схема автоматизированной системы контроля предприятия]]></comment>
+</schema>
+
+<table name="person" layer="0" collapse-mode="2" max-obj-count="8" z-value="0">
+	<schema name="factory_control"/>
+	<role name="postgres"/>
+	<position x="1820" y="80"/>
+	<column name="id_pk" not-null="true">
+		<type name="uuid" length="0"/>
+	</column>
+	<column name="name">
+		<type name="varchar" length="255"/>
+	</column>
+	<column name="second_name">
+		<type name="varchar" length="255"/>
+	</column>
+	<column name="surname">
+		<type name="varchar" length="255"/>
+	</column>
+	<constraint name="person_id_pk" type="pk-constr" table="factory_control.person">
+		<columns names="id_pk" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="department" layer="0" collapse-mode="2" max-obj-count="3" z-value="0">
+	<schema name="factory_control"/>
+	<role name="postgres"/>
+	<position x="1360" y="280"/>
+	<column name="code_pk" not-null="true">
+		<type name="varchar" length="4"/>
+	</column>
+	<column name="name">
+		<type name="varchar" length="255"/>
+	</column>
+	<column name="director">
+		<type name="varchar" length="255"/>
+	</column>
+	<constraint name="department_code_pk" type="pk-constr" table="factory_control.department">
+		<columns names="code_pk" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="job" layer="0" collapse-mode="2" max-obj-count="3" z-value="0">
+	<schema name="factory_control"/>
+	<role name="postgres"/>
+	<position x="2320" y="500"/>
+	<column name="code_pk" not-null="true">
+		<type name="varchar" length="10"/>
+	</column>
+	<column name="name">
+		<type name="varchar" length="255"/>
+	</column>
+	<column name="salary">
+		<type name="float8" length="0"/>
+	</column>
+	<constraint name="code_pk" type="pk-constr" table="factory_control.job">
+		<columns names="code_pk" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="timetable" layer="0" collapse-mode="2" max-obj-count="7" z-value="0">
+	<schema name="factory_control"/>
+	<role name="postgres"/>
+	<position x="2240" y="80"/>
+	<column name="person_id_fk">
+		<type name="uuid" length="0"/>
+	</column>
+	<column name="time_begin">
+		<type name="time" length="0"/>
+	</column>
+	<column name="time_end">
+		<type name="time" length="0"/>
+	</column>
+	<column name="data">
+		<type name="text" length="0"/>
+	</column>
+	<column name="id_pk" not-null="true">
+		<type name="uuid" length="0"/>
+	</column>
+	<constraint name="id_pk" type="pk-constr" table="factory_control.timetable">
+		<columns names="id_pk" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="order" layer="0" collapse-mode="2" max-obj-count="7" z-value="0">
+	<schema name="factory_control"/>
+	<role name="postgres"/>
+	<position x="1200" y="640"/>
+	<column name="code" not-null="true">
+		<type name="uuid" length="0"/>
+	</column>
+	<column name="name">
+		<type name="varchar" length="255"/>
+	</column>
+	<column name="creation_date">
+		<type name="date" length="0"/>
+	</column>
+	<column name="status">
+		<type name="varchar" length="255"/>
+	</column>
+	<column name="data">
+		<type name="text" length="0"/>
+	</column>
+	<constraint name="order_code_pk" type="pk-constr" table="factory_control.&quot;order&quot;">
+		<columns names="code" ref-type="src-columns"/>
+	</constraint>
+
+	<customidxs object-type="column">
+		<object name="code_pk_department" index="5"/>
+	</customidxs>
+
+	<customidxs object-type="constraint">
+		<object name="department_fk" index="1"/>
+	</customidxs>
+</table>
+
+<relationship name="department_has_many_order" type="rel1n" layer="0"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#10edbc"
+	 src-table="factory_control.department"
+	 dst-table="factory_control.&quot;order&quot;"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="department_has_many_person" type="rel1n" layer="0"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#211fdd"
+	 src-table="factory_control.department"
+	 dst-table="factory_control.person"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="person_has_many_timetable" type="rel1n" layer="0"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#eb073c"
+	 src-table="factory_control.person"
+	 dst-table="factory_control.timetable"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="job_has_many_person" type="rel1n" layer="0"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#c9e637"
+	 src-table="factory_control.job"
+	 dst-table="factory_control.person"
+	 src-required="false" dst-required="false"/>
+
+<table name="purchases" layer="0" collapse-mode="2" max-obj-count="3" z-value="0">
+	<schema name="factory_control"/>
+	<role name="postgres"/>
+	<position x="720" y="740"/>
+</table>
+
+<table name="project" layer="0" collapse-mode="2" max-obj-count="2" z-value="0">
+	<schema name="factory_control"/>
+	<role name="postgres"/>
+	<position x="920" y="80"/>
+	<column name="code_pk" not-null="true">
+		<type name="uuid" length="0"/>
+	</column>
+	<constraint name="project_code_pk" type="pk-constr" table="factory_control.project">
+		<columns names="code_pk" ref-type="src-columns"/>
+	</constraint>
+
+	<customidxs object-type="column">
+		<object name="code_pk_department" index="0"/>
+	</customidxs>
+
+	<customidxs object-type="constraint">
+		<object name="department_fk" index="0"/>
+	</customidxs>
+</table>
+
+<relationship name="department_has_many_project" type="rel1n" layer="0"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#c4d962"
+	 src-table="factory_control.department"
+	 dst-table="factory_control.project"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="department_has_many_purchases" type="rel1n" layer="0"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#67a686"
+	 src-table="factory_control.department"
+	 dst-table="factory_control.purchases"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="purchases_has_one_order" type="rel11" layer="0"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#e72438"
+	 src-table="factory_control.&quot;order&quot;"
+	 dst-table="factory_control.purchases"
+	 src-required="false" dst-required="false"/>
+
+<table name="equipment" layer="0" collapse-mode="2" max-obj-count="2" z-value="0">
+	<schema name="factory_control"/>
+	<role name="postgres"/>
+	<position x="680" y="460"/>
+</table>
+
+<relationship name="department_has_many_equipment" type="rel1n" layer="0"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#70c501"
+	 src-table="factory_control.department"
+	 dst-table="factory_control.equipment"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="project_has_many_person" type="rel1n" layer="0"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#f0017c"
+	 src-table="factory_control.project"
+	 dst-table="factory_control.person"
+	 src-required="false" dst-required="false"/>
+
+<table name="sale" layer="0" collapse-mode="2" max-obj-count="4" z-value="0">
+	<schema name="factory_control"/>
+	<role name="postgres"/>
+	<position x="1760" y="840"/>
+	<column name="id_pk" not-null="true">
+		<type name="bigint" length="0"/>
+	</column>
+	<constraint name="sale_id_pk" type="pk-constr" table="factory_control.sale">
+		<columns names="id_pk" ref-type="src-columns"/>
+	</constraint>
+
+	<customidxs object-type="column">
+		<object name="code_pk_department" index="1"/>
+	</customidxs>
+
+	<customidxs object-type="constraint">
+		<object name="department_fk" index="1"/>
+	</customidxs>
+</table>
+
+<relationship name="department_has_many_sale" type="rel1n" layer="0"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#cd9c86"
+	 src-table="factory_control.department"
+	 dst-table="factory_control.sale"
+	 src-required="false" dst-required="false"/>
+
+<table name="product" layer="0" collapse-mode="2" max-obj-count="2" z-value="0">
+	<schema name="factory_control"/>
+	<role name="postgres"/>
+	<position x="2220" y="800"/>
+</table>
+
+<relationship name="department_has_many_product" type="rel1n" layer="0"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#b269e8"
+	 src-table="factory_control.department"
+	 dst-table="factory_control.product"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="sale_has_many_product" type="rel1n" layer="0"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#77cf9b"
+	 src-table="factory_control.sale"
+	 dst-table="factory_control.product"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="project_has_many_equipment" type="rel1n" layer="0"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#dfcea8"
+	 src-table="factory_control.project"
+	 dst-table="factory_control.equipment"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="sale_has_one_order" type="rel11" layer="0"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#87b029"
+	 src-table="factory_control.&quot;order&quot;"
+	 dst-table="factory_control.sale"
+	 src-required="false" dst-required="false"/>
+
+</dbmodel>
